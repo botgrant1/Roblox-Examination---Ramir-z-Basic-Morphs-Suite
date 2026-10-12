@@ -1,5 +1,5 @@
 -- ============================================================================
--- RAMIRÉZ BASIC MORPH SUITE • V5.1 STABLE
+-- RAMIRÉZ BASIC MORPH SUITE • V5.1 STABLE (RELEASE EDITION)
 -- ============================================================================
 
 local Players = game:GetService("Players")
@@ -16,7 +16,8 @@ local function getRandomString()
     return "UI_" .. string.gsub(HttpService:GenerateGUID(false), "-", ""):sub(1, 10)
 end
 
-local targetGuiParent = localPlayer:FindFirstChildOfClass("PlayerGui") or game:GetService("CoreGui")
+-- Protección avanzada de interfaz si usas un Executor Top (gethui)
+local targetGuiParent = (gethui and gethui()) or localPlayer:FindFirstChildOfClass("PlayerGui") or game:GetService("CoreGui")
 
 local LimbAliases = {
     ["Head"] = {"Head", "Cabeza"},
@@ -84,7 +85,7 @@ local function isWeaponOrTool(item)
 
     local nameLower = item.Name:lower()
 
-    -- Exclusión de la hacha del Slasher (Handle con textura Dirty o dentro de un brazo)
+    -- Exclusión quirúrgica de la hacha del Slasher (Handle con textura Dirty o en brazo)
     if nameLower == "handle" then
         if item:FindFirstChild("Dirty") then
             return true
@@ -95,7 +96,7 @@ local function isWeaponOrTool(item)
         end
     end
 
-    -- Exclusiones de Shield, Machete y Chain
+    -- Exclusiones de Shield, Machete y Chain (motosierra de Dave)
     if nameLower == "shield" or nameLower == "machete" or nameLower == "chain" or nameLower == "cover" then
         return true
     end
@@ -320,13 +321,13 @@ local function applyWorkspaceMorph(targetModelName)
 end
 
 -- ----------------------------------------------------------------------------
--- UI INTERFACE
+-- UI INTERFACE (INCLUYE FURY)
 -- ----------------------------------------------------------------------------
 
 local PresetMorphs = {
     "Chimera", "SIN", "Mikhail", "CombatEngineer", "Dave", "Gilbert",
     "RIF Miniboss", "Bomber", "Lurker", "Mutant",
-    "Slasher", "Shielder", "Riser", "RIF AK", "RIF KS", "ChemicalFury", "GrabbyMutant"
+    "Slasher", "Shielder", "Riser", "RIF AK", "RIF KS", "ChemicalFury", "Fury", "GrabbyMutant"
 }
 
 local morphGui = Instance.new("ScreenGui")
